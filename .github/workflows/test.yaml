@@ -19,19 +19,19 @@ jobs:
         run: node --version
       - name: Install Dependencies
         run: |
-          cd react_app
+          cd ReactNodeTesting
           npm install
       - name: Build Project
         run: |
-          cd react_app
+          cd ReactNodeTesting
           npm run build-react
       - name: Run Unit Tests
         run: |
-          cd react_app
+          cd ReactNodeTesting
           npm run test-react
       - name: Lint Codebase
         run: |
-          cd react_app
+          cd ReactNodeTesting
           npx eslint src/sum.js src/cartview.js src/shippingOptions.js
       - name: Deploy and Install Dependencies
         if: always()
