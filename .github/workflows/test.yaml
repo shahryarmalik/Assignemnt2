@@ -1,0 +1,46 @@
+name: Deploy to AWS for Testing (React App)
+run-name: ${{github.actor}} initiated the workflow - Deployment to AWS Testing
+on:
+  pull_request:
+     branches:
+      - master
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Verify Node.js Installation
+        run: node --version
+      - name: Install Dependencies
+        run: |
+          cd react_app
+          npm install
+      - name: Build Project
+        run: |
+          cd react_app
+          npm run build-react
+      - name: Run Unit Tests
+        run: |
+          cd react_app
+          npm run test-react
+      - name: Lint Codebase
+        run: |
+          cd react_app
+          npx eslint src/sum.js src/cartview.js src/shippingOptions.js
+      - name: Deploy and Install Dependencies
+        if: always()
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 13.59.154.56
+          username: ubuntu
+          key: ${{ secrets.SSH_PEM }}
+          port: 22
+          script: |
+            cd ReactNodeTesting
+            npm install  # Install new dependencies
