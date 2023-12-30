@@ -3,7 +3,7 @@ run-name: ${{github.actor}} initiated the workflow - Deployment to AWS Testing
 on:
   pull_request:
      branches:
-      - master
+      - main
   workflow_dispatch:
 jobs:
   deploy:
