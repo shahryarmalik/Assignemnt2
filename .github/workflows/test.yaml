@@ -42,5 +42,5 @@ jobs:
           key: ${{ secrets.SSH_PEM }}
           port: 22
           script: |
-            cd ReactNodeTesting
+            cd /home/ubuntu/ReactNodeTesting
             npm install  # Install new dependencies
